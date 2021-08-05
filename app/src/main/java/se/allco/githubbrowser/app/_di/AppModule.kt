@@ -15,8 +15,8 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import se.allco.githubbrowser.BuildConfig
 import se.allco.githubbrowser.common.logging.LoggingInterceptor
-import se.allco.githubbrowser.common.network_reporter.NetworkReporter
-import se.allco.githubbrowser.common.network_reporter.NetworkReporterImpl
+import se.allco.githubbrowser.common.network_reporter.ConnectivityStateReporter
+import se.allco.githubbrowser.common.network_reporter.NetworkConnectivityReporterImpl
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -33,7 +33,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesNetworkReporter(impl: NetworkReporterImpl): NetworkReporter = impl
+    fun providesNetworkReporter(impl: NetworkConnectivityReporterImpl): ConnectivityStateReporter =
+        impl
 
     @Provides
     fun provideGsonBuilder() = GsonBuilder()

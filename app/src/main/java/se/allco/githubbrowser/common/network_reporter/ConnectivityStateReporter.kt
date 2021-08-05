@@ -7,14 +7,16 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-interface NetworkReporter {
+interface ConnectivityStateReporter {
     /**
-     * @returns a stream which emits `true` if the device is/gets online or `false` otherwise,
+     * Network connectivity reporter.
+     * @return a stream which emits `true` if the device is/gets online or `false` otherwise,
      */
     fun states(): Observable<Boolean>
 }
 
-class NetworkReporterImpl @Inject constructor(context: Context) : NetworkReporter {
+class NetworkConnectivityReporterImpl @Inject constructor(context: Context) :
+    ConnectivityStateReporter {
 
     private val connectivityStatesStream: Observable<Boolean> by lazy {
         when {

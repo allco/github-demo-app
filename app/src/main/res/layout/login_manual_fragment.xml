@@ -37,12 +37,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:gravity="center"
-            android:text="@{viewModel.errorMessage}"
+            android:text="@{viewModel.contentViewModel.errorMessage}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:goneUnless="@{viewModel.showError}"
+            bind:goneUnless="@{viewModel.contentViewModel.errorShow}"
             tools:background="#AAFFFF00"
             tools:text="@tools:sample/lorem[9]"
             />
@@ -52,12 +52,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:onClick="@{v -> viewModel.onRetryClicked()}"
+            android:onClick="@{v -> viewModel.contentViewModel.onRetryClicked()}"
             android:text="@string/button_retry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_error"
-            bind:goneUnless="@{viewModel.showError}"
+            bind:goneUnless="@{viewModel.contentViewModel.errorAllowRetry}"
             />
 
         <ProgressBar
@@ -69,7 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:goneUnless="@{viewModel.showLoading}"
+            bind:goneUnless="@{viewModel.contentViewModel.showLoading}"
             />
 
         <WebView
@@ -81,9 +81,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            bind:destination="@{viewModel.webClient.destination}"
-            bind:goneUnless="@{viewModel.showContent}"
-            bind:settings="@{viewModel.webClient.settings}"
+            bind:destination="@{viewModel.githubViewModel.destination}"
+            bind:goneUnless="@{viewModel.contentViewModel.showContent}"
+            bind:settings="@{viewModel.githubViewModel.settings}"
             tools:alpha="0.5"
             tools:background="#AAFFAAAA"
             />

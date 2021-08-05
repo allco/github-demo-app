@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import io.reactivex.rxjava3.core.Observable
 
 internal class NetworkReporterApi23(context: Context) {
@@ -22,9 +21,7 @@ internal class NetworkReporterApi23(context: Context) {
                         false
                     )
                     else -> {
-                        @Suppress("DEPRECATION")
-                        (intent.extras?.get(ConnectivityManager.EXTRA_NETWORK_INFO) as? NetworkInfo)
-                            ?.also { emitter.onNext(it.isConnected) }
+                        tryToExtractConnectedStatus(intent)?.let(emitter::onNext)
                     }
                 }
             }
@@ -33,4 +30,9 @@ internal class NetworkReporterApi23(context: Context) {
         context.registerReceiver(receiver, INTENT_FILTER)
         emitter.setCancellable { context.unregisterReceiver(receiver) }
     }
+
+    @Suppress("DEPRECATION")
+    private fun tryToExtractConnectedStatus(intent: Intent): Boolean? =
+        (intent.extras?.get(ConnectivityManager.EXTRA_NETWORK_INFO) as? android.net.NetworkInfo)
+            ?.isConnected
 }

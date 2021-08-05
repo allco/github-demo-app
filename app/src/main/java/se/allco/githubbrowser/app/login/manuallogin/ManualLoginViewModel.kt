@@ -1,42 +1,47 @@
 package se.allco.githubbrowser.app.login.manuallogin
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import io.reactivex.rxjava3.core.Single
 import se.allco.githubbrowser.R
-import se.allco.githubbrowser.app.login.manuallogin.github_client.GithubWebClient
+import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.ui.LoadableContentViewModel
+import se.allco.githubbrowser.common.utils.getString
+import se.allco.githubbrowser.common.utils.toLiveData
 import timber.log.Timber
 import javax.inject.Inject
 
 class ManualLoginViewModel @Inject constructor(
     application: Application,
-    val webClient: GithubWebClient,
+    val contentViewModel: LoadableContentViewModel,
+    val githubViewModel: GithubWebViewModel,
     private val model: ManualLoginModel,
-) : LoadableContentViewModel<User.Valid>(application) {
+) : AndroidViewModel(application) {
 
-    companion object {
-        private fun GithubWebClient.Event.asViewModelState(): LoadableContentViewModel.State =
-            when (this) {
-                GithubWebClient.Event.PageLoadingStarted -> State.Loading
-                GithubWebClient.Event.PageLoadingSuccess -> State.ShowContent
-                is GithubWebClient.Event.PageLoadingError -> State.Error(messageRes)
-                is GithubWebClient.Event.GithubCodeReceived -> State.Loading
-            }
-    }
-
-    override fun loadContent(): Single<User.Valid> {
-        return waitForGithubCode()
+    val result =
+        waitForGithubCode()
             .concatMap(::authenticateWithCode)
             .onErrorResumeNext(::createErrorHandler)
-    }
+            .toLiveData()
 
     private fun waitForGithubCode(): Single<GithubCode> =
-        webClient
+        githubViewModel
             .states
-            .takeUntil { it is GithubWebClient.Event.GithubCodeReceived }
-            .doOnNext { it.asViewModelState().let(::renderState) }
-            .ofType(GithubWebClient.Event.GithubCodeReceived::class.java)
+            .doOnNext {
+                when (it) {
+                    is GithubWebViewModel.Event.GithubCodeReceived ->
+                        contentViewModel.renderLoading()
+                    is GithubWebViewModel.Event.PageLoadingError ->
+                        contentViewModel.renderError(getString(it.messageRes), allowRetry = true)
+                    GithubWebViewModel.Event.PageLoadingStarted ->
+                        contentViewModel.renderLoading()
+                    GithubWebViewModel.Event.PageLoadingSuccess ->
+                        contentViewModel.renderContentReady()
+                }
+            }
+            .takeUntil { it is GithubWebViewModel.Event.GithubCodeReceived }
+            .ofType(GithubWebViewModel.Event.GithubCodeReceived::class.java)
             .map { it.code }
             .firstOrError()
 
@@ -44,10 +49,15 @@ class ManualLoginViewModel @Inject constructor(
         model.authenticateWithCode(githubCode)
 
     private fun createErrorHandler(err: Throwable): Single<User.Valid> {
-        Timber.w(err, "ManualLoginViewModel failed")
+        Timber.e(err, "ManualLoginViewModel failed")
         return model
             .createErrorHandler()
-            .doOnSubscribe { renderState(State.Error(R.string.login_manual_error_user_data_fetching)) }
+            .doOnSubscribe {
+                contentViewModel.renderError(
+                    getString(R.string.login_manual_error_user_data_fetching),
+                    allowRetry = true,
+                )
+            }
             .andThen(Single.never())
     }
 }

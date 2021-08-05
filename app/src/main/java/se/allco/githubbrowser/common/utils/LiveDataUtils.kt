@@ -1,11 +1,13 @@
 package se.allco.githubbrowser.common.utils
 
 import androidx.core.app.ComponentActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Flowable
@@ -123,7 +125,6 @@ fun <T> Single<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
  * The source Rx stream will be subscribed immediately
  * and disposed only when the disposable added to `disposableContainer` is disposed.
  */
-//TODO: make error processing mandatory
 fun <T> Observable<T>.toLiveData(disposableContainer: CompositeDisposable): LiveData<T> =
     toLiveDataImpl(callStackDepth = 3).apply {
         if (!disposableContainer.isDisposed) {
