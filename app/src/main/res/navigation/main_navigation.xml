@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/navigation_repos"
+    >
+
+    <fragment
+        android:id="@+id/navigation_repos"
+        android:name="se.allco.githubbrowser.app.main.repos.ReposFragment"
+        android:label="@string/title_repos"
+        tools:layout="@layout/main_repos_fragment"
+        />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="se.allco.githubbrowser.app.main.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/main_account_fragment"
+        />
+
+</navigation>
