@@ -13,8 +13,9 @@ import se.allco.githubbrowser.app._di.AppComponent
 import se.allco.githubbrowser.app.login._di.LoginComponent
 import se.allco.githubbrowser.app.main.MainActivity
 import se.allco.githubbrowser.app.user.User
-import se.allco.githubbrowser.common.utils.ObserverNonNull
 import se.allco.githubbrowser.common.utils.getViewModel
+import se.allco.githubbrowser.common.utils.observe
+import se.allco.githubbrowser.common.utils.with
 import se.allco.githubbrowser.databinding.LoginActivityBinding
 import timber.log.Timber
 import javax.inject.Inject
@@ -64,10 +65,10 @@ class LoginActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<LoginActivityBinding>(this, R.layout.login_activity)
         binding.lifecycleOwner = this@LoginActivity
         binding.viewModel = viewModel
-        viewModel.loggedInUser.observe(this@LoginActivity, ObserverNonNull(::onUserLoggedIn))
-        viewModel.launchManualLogin.observe(this@LoginActivity, ObserverNonNull {
+        observe(viewModel.loggedInUser) with (::onUserLoggedIn)
+        observe(viewModel.launchManualLogin) with {
             findNavController(R.id.nav_host_fragment).navigate(R.id.to_manual_login)
-        })
+        }
     }
 
     private fun onUserLoggedIn(@Suppress("UNUSED_PARAMETER") user: User.Valid) {

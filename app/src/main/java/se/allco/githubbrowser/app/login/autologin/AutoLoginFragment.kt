@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import se.allco.githubbrowser.app.user.User
-import se.allco.githubbrowser.common.utils.ObserverNonNull
 import se.allco.githubbrowser.common.utils.getViewModel
+import se.allco.githubbrowser.common.utils.observe
+import se.allco.githubbrowser.common.utils.with
 import se.allco.githubbrowser.databinding.LoginAutoFragmentBinding
 import javax.inject.Inject
 import javax.inject.Provider
@@ -25,13 +26,13 @@ class AutoLoginFragment @Inject constructor(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? =
+    ): View =
         LoginAutoFragmentBinding.inflate(inflater, container, false)
             .also { binding ->
                 val viewModel = getViewModel(viewModelProvider)
                 binding.viewModel = viewModel
                 binding.lifecycleOwner = viewLifecycleOwner
-                viewModel.result.observe(viewLifecycleOwner, ObserverNonNull(::onLoginResult))
+                observe(viewModel.result) with (::onLoginResult)
             }
             .root
 
