@@ -23,14 +23,6 @@ fun <T : Any> Fragment.observe(liveData: LiveData<T>): Pair<LifecycleOwner, Live
 fun <T : Any> ComponentActivity.observe(liveData: LiveData<T>): Pair<LifecycleOwner, LiveData<T>> =
     Pair(this as LifecycleOwner, liveData)
 
-/**
- * Attaches [LiveData] to a [LifecycleOwner] without a callback.
- * It is useful for subscribing to a lifecycle without necessarily attaching it to a view or being interested in any callback when the work is done fully by the [LiveData].
- */
-fun <T> LiveData<T>.attachTo(lifecycleOwner: LifecycleOwner) {
-    observe(lifecycleOwner, Observer {})
-}
-
 infix fun <T> Pair<LifecycleOwner, LiveData<T>>.with(handler: (value: T) -> Unit) {
     second.observe(first, { value: T? -> value?.apply(handler) })
 }

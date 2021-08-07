@@ -3,8 +3,6 @@ package se.allco.githubbrowser.common.utils
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
@@ -74,15 +72,3 @@ fun Lifecycle.attachLifecycleEventsObserver(block: LifecycleObserver.() -> Unit)
     addObserver(observer)
     return disposables
 }
-
-fun Lifecycle.getStates(): Observable<Lifecycle.State> =
-    Observable
-        .create { emitter: ObservableEmitter<Lifecycle.State> ->
-            emitter.onNext(currentState)
-            val disposable = attachLifecycleEventsObserver {
-                onEvent = { emitter.onNext(currentState) }
-            }
-            emitter.setDisposable(disposable)
-        }
-        .takeUntil { it == Lifecycle.State.DESTROYED }
-        .distinctUntilChanged()

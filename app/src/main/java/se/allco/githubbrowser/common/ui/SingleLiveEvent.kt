@@ -44,18 +44,8 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 }
 
-class SingleVoidLiveEvent : SingleLiveEvent<Unit>() {
-    fun call() {
-        super.postValue(Unit)
-    }
-}
-
 fun <T> LiveData<T>.toSingleLiveEvent(): LiveData<T> = SingleLiveEvent<T>().let { singleLiveEvent ->
     Transformations.switchMap(this) { value ->
         singleLiveEvent.also { it.value = value }
     }
 }
-
-@Suppress("FunctionName")
-fun <T> SingleLiveEvent(value: T? = null): SingleLiveEvent<T> =
-    SingleLiveEvent<T>().apply { value?.also { this.value = value } }

@@ -8,7 +8,6 @@ import se.allco.githubbrowser.app.login.LoginActivity
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.app.user.UserComponentHolder
 import se.allco.githubbrowser.common.utils.attachLifecycleEventsObserver
-import se.allco.githubbrowser.common.utils.subscribeSafely
 
 fun FragmentActivity.ensureUserLoggedIn(onValidUser: () -> Unit) {
 
@@ -32,7 +31,7 @@ fun FragmentActivity.ensureUserLoggedIn(onValidUser: () -> Unit) {
                     .map { it.getCurrentUser() }
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext { onUserChanged(it) }
-                    .subscribeSafely()
+                    .subscribe()
             )
         }
         onPaused = {

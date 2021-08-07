@@ -26,8 +26,3 @@ sealed class Optional<out T> {
             else -> throw IllegalStateException(message())
         }
 }
-
-fun <T> T?.asOptional(): Optional<T> = when {
-    this != null -> Optional.Some(this)
-    else -> Optional.None
-}

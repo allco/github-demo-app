@@ -1,15 +1,7 @@
 package se.allco.githubbrowser.common.utils
 
 import android.app.Application
-import android.content.Context
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
-import androidx.annotation.ColorRes
-import androidx.annotation.DimenRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
@@ -57,9 +49,6 @@ fun <T : ViewModel> createViewFactoryFactory(factory: () -> T): ViewModelProvide
 inline fun <reified T : ViewModel> Fragment.getViewModel(viewModelProvider: Provider<T>): T =
     ViewModelProvider(this, createViewFactoryFactory { viewModelProvider.get() }).get(T::class.java)
 
-inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline viewModelProvider: () -> T): T =
-    ViewModelProvider(this, createViewFactoryFactory { viewModelProvider() }).get(T::class.java)
-
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel(viewModelProvider: Provider<T>): T =
     ViewModelProvider(this, createViewFactoryFactory { viewModelProvider.get() }).get(T::class.java)
 
@@ -69,40 +58,3 @@ inline fun <reified T : ViewModel> FragmentActivity.getViewModel(crossinline vie
 fun AndroidViewModel.getString(@StringRes res: Int): String =
     this.getApplication<Application>().getString(res)
 
-fun AndroidViewModel.getString(@StringRes res: Int, vararg args: Any): String =
-    this.getApplication<Application>().getString(res, *args)
-
-fun AndroidViewModel.getInteger(@IntegerRes res: Int) =
-    this.getApplicationContext().resources.getInteger(res)
-
-/**
- * Convenience method for fetching a [Drawable], Uses the [ContextCompat] for backwards compatibility
- *
- * @param res The resource id
- * @throws Resources.NotFoundException when the resource is not found
- */
-fun AndroidViewModel.getDrawable(@DrawableRes res: Int): Drawable =
-    ContextCompat.getDrawable(this.getApplication(), res)
-        ?: throw Resources.NotFoundException("Can not find resource ($res)")
-
-/**
- * Convenience method for fetching a color, Uses the [ContextCompat] for backwards compatibility
- *
- * @param res The resource id
- * @throws Resources.NotFoundException when the resource is not found
- */
-@Suppress("unused")
-fun AndroidViewModel.getColor(@ColorRes res: Int): Int =
-    ContextCompat.getColor(this.getApplication(), res)
-
-/**
- * Convenience method for [Resources.getDimensionPixelSize]
- */
-fun AndroidViewModel.getDimensionPixelSize(@DimenRes res: Int): Int =
-    this.getApplication<Application>().resources.getDimensionPixelSize(res)
-
-/**
- * Convenience method for getting the context inside a [AndroidViewModel]
- */
-fun AndroidViewModel.getApplicationContext(): Context =
-    getApplication<Application>().applicationContext

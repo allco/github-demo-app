@@ -1,6 +1,5 @@
 package se.allco.githubbrowser.common.utils
 
-import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
@@ -17,15 +16,6 @@ operator fun CompositeDisposable.plusAssign(disposable: Disposable?) {
 
 fun <T> Maybe<T>.toSingleOptional(): Single<Optional<T>> =
     map { Optional.of(it) }.defaultIfEmpty(Optional.None)
-
-inline fun <reified T> Flowable<Optional<T>>.filterOptional(): Flowable<T> =
-    ofType(Optional.Some::class.java).map { it.element as T }
-
-inline fun <reified T> Observable<Optional<T>>.filterOptional(): Observable<T> =
-    ofType(Optional.Some::class.java).map { it.element as T }
-
-inline fun <reified T> Single<Optional<T>>.filterOptional(): Maybe<T> =
-    toObservable().filterOptional().firstElement()
 
 fun <T> ObservableEmitter<T>.onNextSafely(value: T?) {
     value?.takeIf { !isDisposed }?.also { onNext(it) }

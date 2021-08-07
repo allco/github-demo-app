@@ -18,12 +18,13 @@ fun setRecyclerViewListItems(recyclerView: RecyclerView, listItems: List<DataBou
 }
 
 @BindingAdapter("dividerSize")
-fun setRecyclerViewSpacing(recyclerView: RecyclerView, dividerSizePx: Int) {
-    recyclerView.addItemDecoration(DividerItemDecoration(dividerSizePx))
+fun setRecyclerViewSpacing(recyclerView: RecyclerView, dividerSizePx: Int?) {
+    val size = dividerSizePx ?: return
+    recyclerView.addItemDecoration(DividerItemDecoration(size))
 }
 
 @BindingAdapter("dividerSizeDp")
-fun setRecyclerViewSpacingDp(recyclerView: RecyclerView, dividerSizeDp: Int) {
-    val spacingPx = recyclerView.context.dpToPx(dividerSizeDp.toFloat())
-    recyclerView.addItemDecoration(DividerItemDecoration(spacingPx))
+fun setRecyclerViewSpacingDp(recyclerView: RecyclerView, dividerSizeDp: Int?) {
+    val sizeDp = dividerSizeDp ?: return
+    setRecyclerViewSpacing(recyclerView, recyclerView.context.dpToPx(sizeDp.toFloat()))
 }
