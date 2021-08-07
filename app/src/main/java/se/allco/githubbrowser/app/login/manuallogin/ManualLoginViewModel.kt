@@ -2,13 +2,17 @@ package se.allco.githubbrowser.app.login.manuallogin
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel
+import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.GithubCodeReceived
+import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.PageLoadingError
+import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.PageLoadingStarted
+import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.PageLoadingSuccess
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.ui.LoadableContentViewModel
-import se.allco.githubbrowser.common.utils.getString
 import se.allco.githubbrowser.common.utils.toLiveData
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,33 +28,37 @@ class ManualLoginViewModel @Inject constructor(
 
     val authenticatedUser =
         waitForGithubCode()
-            .concatMap(::authenticateWithCode)
+            .authenticateWithGithubCode()
             .onErrorResumeNext(::createErrorHandler)
             .toLiveData(disposables)
 
-    private fun waitForGithubCode(): Single<GithubCode> =
-        githubViewModel
-            .states
-            .doOnNext(::onGithubWebViewEvent)
-            .ofType(GithubWebViewModel.Event.GithubCodeReceived::class.java)
-            .map { it.code }
-            .firstOrError()
-
-    private fun onGithubWebViewEvent(it: GithubWebViewModel.Event?) {
-        when (it) {
-            is GithubWebViewModel.Event.GithubCodeReceived ->
-                contentViewModel.renderStateLoading()
-            is GithubWebViewModel.Event.PageLoadingError ->
-                contentViewModel.renderStateError(getString(it.messageRes), allowRetry = true)
-            GithubWebViewModel.Event.PageLoadingStarted ->
-                contentViewModel.renderStateLoading()
-            GithubWebViewModel.Event.PageLoadingSuccess ->
-                contentViewModel.renderStateContentReady()
+    private fun waitForGithubCode(): Observable<GithubCode> =
+        contentViewModel.runRetryable {
+            githubViewModel
+                .states
+                .renderStates()
+                .unwrapCodeFromState()
+                .firstOrError()
         }
-    }
 
-    private fun authenticateWithCode(githubCode: GithubCode): Single<User.Valid> =
-        model.authenticateWithCode(githubCode)
+    private fun Observable<GithubWebViewModel.Event>.renderStates() =
+        doOnSubscribe { contentViewModel.renderInitialisation() }
+            .doOnNext { event ->
+                when (event) {
+                    PageLoadingStarted -> contentViewModel.renderStateLoading()
+                    PageLoadingSuccess -> contentViewModel.renderStateContentReady()
+                    is GithubCodeReceived -> contentViewModel.renderStateLoading()
+                    is PageLoadingError -> contentViewModel.renderStateError(event.messageRes, true)
+                }
+            }
+
+    private fun Observable<GithubWebViewModel.Event>.unwrapCodeFromState() =
+        ofType(GithubCodeReceived::class.java)
+            .map { it.code }
+
+    private fun Observable<GithubCode>.authenticateWithGithubCode(): Single<User.Valid> =
+        switchMapSingle(model::authenticateWithCode)
+            .firstOrError()
 
     private fun createErrorHandler(err: Throwable): Single<User.Valid> {
         Timber.e(err, "ManualLoginViewModel failed")
@@ -61,8 +69,10 @@ class ManualLoginViewModel @Inject constructor(
     }
 
     private fun renderErrorFetchingUserData() {
-        val message = getString(R.string.login_manual_error_user_data_fetching)
-        contentViewModel.renderStateError(message, allowRetry = true)
+        contentViewModel.renderStateError(
+            R.string.login_manual_error_user_data_fetching,
+            allowRetry = true,
+        )
     }
 
     override fun onCleared() {

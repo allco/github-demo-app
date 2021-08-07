@@ -1,8 +1,11 @@
 package se.allco.githubbrowser.common.ui
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.common.utils.map
@@ -10,7 +13,7 @@ import javax.inject.Inject
 
 class LoadableContentViewModel @Inject constructor(private val context: Context) {
 
-    val retrySubject = BehaviorSubject.createDefault(Unit)
+    private val retrySubject = BehaviorSubject.createDefault(Unit)
 
     val showLoading = MutableLiveData(false)
     val showContent = MutableLiveData(false)
@@ -20,8 +23,15 @@ class LoadableContentViewModel @Inject constructor(private val context: Context)
 
     fun onRetryClicked() = retrySubject.onNext(Unit)
 
-    fun renderGenericError(allowRetry: Boolean) {
-        renderStateError(context.getString(R.string.error_generic), allowRetry)
+    fun <T> runRetryable(block: () -> Single<T>): Observable<T> =
+        retrySubject.switchMapSingle { block() }
+
+    fun renderStateErrorGeneric(allowRetry: Boolean) {
+        renderStateError(R.string.error_generic, allowRetry)
+    }
+
+    fun renderStateError(@StringRes messageRes: Int, allowRetry: Boolean) {
+        renderStateError(context.getString(messageRes), allowRetry)
     }
 
     fun renderStateError(message: String, allowRetry: Boolean) {
