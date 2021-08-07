@@ -26,19 +26,17 @@ class ManualLoginViewModel @Inject constructor(
 
     private val disposables = CompositeDisposable()
 
-    val authenticatedUser =
-        waitForGithubCode()
-            .authenticateWithGithubCode()
-            .onErrorResumeNext(::createErrorHandler)
-            .toLiveData(disposables)
+    val authenticatedUser = waitForAuthenticatedUser().toLiveData(disposables)
 
-    private fun waitForGithubCode(): Observable<GithubCode> =
+    private fun waitForAuthenticatedUser(): Observable<User.Valid> =
         contentViewModel.runRetryable {
             githubViewModel
                 .states
                 .renderStates()
                 .unwrapCodeFromState()
                 .firstOrError()
+                .flatMap(model::authenticateWithCode)
+                .onErrorResumeNext(::createErrorHandler)
         }
 
     private fun Observable<GithubWebViewModel.Event>.renderStates() =
@@ -55,10 +53,6 @@ class ManualLoginViewModel @Inject constructor(
     private fun Observable<GithubWebViewModel.Event>.unwrapCodeFromState() =
         ofType(GithubCodeReceived::class.java)
             .map { it.code }
-
-    private fun Observable<GithubCode>.authenticateWithGithubCode(): Single<User.Valid> =
-        switchMapSingle(model::authenticateWithCode)
-            .firstOrError()
 
     private fun createErrorHandler(err: Throwable): Single<User.Valid> {
         Timber.e(err, "ManualLoginViewModel failed")

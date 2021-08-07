@@ -9,6 +9,9 @@ class ReposItemViewModel(val repo: ReposRepository.Repo) : DataBoundAdapter.Item
     class Factory @Inject constructor() {
         fun create(repo: ReposRepository.Repo): ReposItemViewModel =
             ReposItemViewModel(repo)
+
+        fun create(list: List<ReposRepository.Repo>): List<ReposItemViewModel> =
+            list.map { create(it) }
     }
 
     override fun areItemsTheSame(item: DataBoundAdapter.Item): Boolean =

@@ -3,7 +3,6 @@ package se.allco.githubbrowser.app.main.repos
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import se.allco.githubbrowser.R
@@ -15,38 +14,41 @@ import javax.inject.Inject
 
 class ReposViewModel @Inject constructor(
     application: Application,
-    reposRepository: ReposRepository,
     val contentViewModel: LoadableContentViewModel,
+    private val reposRepository: ReposRepository,
     private val reposItemViewModelFactory: ReposItemViewModel.Factory,
 ) : AndroidViewModel(application) {
 
     private val disposables = CompositeDisposable()
 
-    val listItems: LiveData<List<ReposItemViewModel>> =
-        contentViewModel
-            .runRetryable<List<ReposItemViewModel>> {
-                reposRepository
-                    .getRepos()
+    val listItems: LiveData<List<ReposItemViewModel>> = waitForItems().toLiveData()
 
-                    .map { list -> list.map { reposItemViewModelFactory.create(it) } }
-                    .renderStates()
-            }
-            .onErrorResumeNext(::createErrorHandler)
-            .toLiveData()
+    private fun waitForItems() =
+        contentViewModel.runRetryable {
+            reposRepository
+                .getRepos()
+                .unwrapItems()
+                .renderStates()
+                .onErrorResumeNext(::createErrorHandler)
+        }
+
+    private fun Single<List<ReposRepository.Repo>>.unwrapItems(): Single<List<ReposItemViewModel>> =
+        map(reposItemViewModelFactory::create)
 
     private fun Single<List<ReposItemViewModel>>.renderStates() =
         doOnSubscribe { contentViewModel.renderInitialisation() }
-            .attachSmartLoading { onShowLoading = { contentViewModel.renderStateLoading() } }
-            .doOnSuccess { list ->
-                when {
-                    list.isEmpty() -> renderStateEmptyList()
-                    else -> contentViewModel.renderStateContentReady()
-                }
-            }
+            .attachSmartLoading { onShowLoading = contentViewModel::renderStateLoading }
+            .doOnSuccess(::renderStateContent)
 
-    private fun createErrorHandler(err: Throwable): Observable<List<ReposItemViewModel>> {
+    private fun renderStateContent(list: List<ReposItemViewModel>) =
+        when {
+            list.isEmpty() -> renderStateEmptyList()
+            else -> contentViewModel.renderStateContentReady()
+        }
+
+    private fun createErrorHandler(err: Throwable): Single<List<ReposItemViewModel>> {
         Timber.w(err, "ReposViewModel failed")
-        return Observable
+        return Single
             .never<List<ReposItemViewModel>>()
             .doOnSubscribe { renderStateErrorFetchData() }
     }
