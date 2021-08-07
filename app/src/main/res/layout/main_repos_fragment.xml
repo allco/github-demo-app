@@ -29,12 +29,12 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="@{viewModel.errorMessage}"
+            android:text="@{viewModel.contentViewModel.errorMessage}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:goneUnless="@{viewModel.showError}"
+            bind:goneUnless="@{viewModel.contentViewModel.errorShow}"
             tools:text="@tools:sample/lorem[9]"
             />
 
@@ -43,14 +43,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:onClick="@{v -> viewModel.onRetryClicked()}"
+            android:onClick="@{v -> viewModel.contentViewModel.onRetryClicked()}"
             android:text="@string/button_retry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_error"
+            bind:goneUnless="@{viewModel.contentViewModel.errorAllowRetry}"
             />
-        <!--        //TODO: fix this-->
-        <!--        bind:goneUnless="@{}"-->
 
         <ProgressBar
             android:id="@+id/spinner"
@@ -61,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:goneUnless="@{viewModel.showLoading}"
+            bind:goneUnless="@{viewModel.contentViewModel.showLoading}"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -78,7 +77,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:dividerSizeDp="@{16}"
-            bind:goneUnless="@{viewModel.showContent}"
+            bind:goneUnless="@{viewModel.contentViewModel.showContent}"
             bind:hasFixedSize="@{false}"
             bind:listItems="@{viewModel.listItems}"
             tools:itemCount="4"
