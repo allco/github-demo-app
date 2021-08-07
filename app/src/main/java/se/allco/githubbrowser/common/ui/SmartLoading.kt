@@ -42,8 +42,8 @@ const val SMART_SPINNER_PHASE_LOADING_MS = 1000L
  */
 
 class SmartLoadingConfiguration<T> {
-    var warmingUpPhaseDurationMs: Long = DELAYED_SPINNER_WARMING_UP_PHASE_MS
-    var loadingPhaseDurationMs: Long = DELAYED_SPINNER_LOADING_PHASE_MS
+    var warmingUpPhaseDurationMs: Long = SMART_SPINNER_PHASE_WARMING_UP_MS
+    var loadingPhaseDurationMs: Long = SMART_SPINNER_PHASE_LOADING_MS
     var scheduler: Scheduler = Schedulers.io()
     var onShowLoading: (() -> Unit)? = null
     var onHideLoading: (() -> Unit)? = null
@@ -87,8 +87,8 @@ fun <T> Single<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.(
 fun <T> Maybe<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Maybe<T> =
     toObservable().attachSmartLoading(configBlock).firstElement()
 
-fun <T> Completable.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Completable =
-    toObservable<T>().attachSmartLoading(configBlock).ignoreElements()
+fun Completable.attachSmartLoading(configBlock: SmartLoadingConfiguration<Any>.() -> Unit): Completable =
+    toObservable<Any>().attachSmartLoading(configBlock).ignoreElements()
 
 private fun <T> Observable<T>.attachSmartLoading(
     warmingUpPhaseDurationMs: Long = SMART_SPINNER_PHASE_WARMING_UP_MS,

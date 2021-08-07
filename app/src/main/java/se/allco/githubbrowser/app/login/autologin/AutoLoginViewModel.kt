@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import se.allco.githubbrowser.app.user.User
-import se.allco.githubbrowser.common.ui.addSmartSpinner
+import se.allco.githubbrowser.common.ui.attachSmartLoading
 import se.allco.githubbrowser.common.utils.toLiveData
 import javax.inject.Inject
 
@@ -19,6 +19,6 @@ class AutoLoginViewModel @Inject constructor(
     val result: LiveData<User> =
         model
             .login()
-            .addSmartSpinner(showLoading)
+            .attachSmartLoading { showLoadingLiveData = showLoading }
             .toLiveData()
 }

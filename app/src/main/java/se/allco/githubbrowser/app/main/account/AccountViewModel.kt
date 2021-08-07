@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import se.allco.githubbrowser.R
-import se.allco.githubbrowser.common.ui.addSmartSpinner
+import se.allco.githubbrowser.common.ui.attachSmartLoading
 import se.allco.githubbrowser.common.utils.combine
 import se.allco.githubbrowser.common.utils.getString
 import se.allco.githubbrowser.common.utils.map
@@ -26,7 +26,7 @@ class AccountViewModel @Inject constructor(
     private val _data =
         repository
             .getAccount()
-            .addSmartSpinner(_showLoading)
+            .attachSmartLoading { showLoadingLiveData = _showLoading }
             .doOnError { errorMessage.postValue(getString(R.string.error_generic)) }
             .toLiveData()
 
@@ -49,7 +49,7 @@ class AccountViewModel @Inject constructor(
         disposables +=
             repository
                 .logoutUser()
-                .addSmartSpinner(_showLoading)
+                .attachSmartLoading { showLoadingLiveData = _showLoading }
                 .doOnError { errorMessage.postValue(getString(R.string.error_generic)) }
                 .subscribeSafely()
     }
