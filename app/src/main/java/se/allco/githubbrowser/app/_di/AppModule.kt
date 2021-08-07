@@ -37,7 +37,7 @@ class AppModule {
         impl
 
     @Provides
-    fun provideGsonBuilder() = GsonBuilder()
+    fun provideGsonBuilder(): GsonBuilder = GsonBuilder()
 
     @Provides
     fun provideSharedPreferences(context: Context): SharedPreferences =
@@ -58,15 +58,11 @@ class AppModule {
             }
 
     @Provides
-    fun provideRetrofitBuilder(): Retrofit.Builder =
+    fun provideRetrofitBuilder(gsonBuilder: GsonBuilder): Retrofit.Builder =
         Retrofit
             .Builder()
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(
-                GsonConverterFactory.create(
-                    GsonBuilder()
-                        .setLenient()
-                        .create()
-                )
+                GsonConverterFactory.create(gsonBuilder.setLenient().create())
             )
 }
