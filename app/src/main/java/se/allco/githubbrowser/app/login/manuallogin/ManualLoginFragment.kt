@@ -13,8 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.ui.overrideOnBackPress
-import se.allco.githubbrowser.common.utils.ObserverNonNull
 import se.allco.githubbrowser.common.utils.getViewModel
+import se.allco.githubbrowser.common.utils.observe
+import se.allco.githubbrowser.common.utils.with
 import se.allco.githubbrowser.databinding.LoginManualFragmentBinding
 import javax.inject.Inject
 import javax.inject.Provider
@@ -32,7 +33,7 @@ class ManualLoginFragment @Inject constructor(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? =
+    ): View =
         LoginManualFragmentBinding
             .inflate(inflater, container, false)
             .also { initViews(it) }
@@ -47,15 +48,16 @@ class ManualLoginFragment @Inject constructor(
             navController,
             AppBarConfiguration(setOf(R.id.navigation_login_manual))
         )
-        viewModel.result.observe(viewLifecycleOwner, ObserverNonNull(::onLoginResult))
-        overrideOnBackPress(onBackPressed(binding.webView))
+        observe(viewModel.authenticatedUser) with (::onLoginResult)
+        overrideOnBackPress(createBackPressedHandler(binding.webView))
     }
 
-    private fun onBackPressed(webView: WebView): OnBackPressedCallback.() -> Unit = {
-        webView.takeIf { it.canGoBack() }?.goBack() ?: kotlin.run {
-            remove()
-            requireActivity().onBackPressed()
-        }
+    private fun createBackPressedHandler(webView: WebView): OnBackPressedCallback.() -> Unit = {
+        webView.takeIf { it.canGoBack() }?.goBack()
+            ?: let { callback ->
+                callback.remove()
+                requireActivity().onBackPressed()
+            }
     }
 
     private fun onLoginResult(user: User.Valid) {

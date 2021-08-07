@@ -14,12 +14,13 @@ class ManualLoginModel @Inject constructor(
     fun authenticateWithCode(code: String): Single<User.Valid> =
         repository
             .fetchAccessToken(code)
-            .flatMap { token -> repository.fetchUserData(token) }
-            .flatMap { user ->
-                repository
-                    .writeCachedToken(user.token)
-                    .andThen(Single.just(user))
-            }
+            .flatMap(repository::fetchUserData)
+            .flatMap(::cacheUserData)
+
+    private fun cacheUserData(user: User.Valid): Single<User.Valid> =
+        repository
+            .writeCachedToken(user.token)
+            .andThen(Single.just(user))
 
     fun createErrorHandler(): Completable = repository.clearUserData()
 }

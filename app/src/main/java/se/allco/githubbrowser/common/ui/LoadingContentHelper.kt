@@ -21,10 +21,10 @@ class LoadableContentViewModel @Inject constructor(private val context: Context)
     fun onRetryClicked() = retrySubject.onNext(Unit)
 
     fun renderGenericError(allowRetry: Boolean) {
-        renderError(context.getString(R.string.error_generic), allowRetry)
+        renderStateError(context.getString(R.string.error_generic), allowRetry)
     }
 
-    fun renderError(message: String, allowRetry: Boolean) {
+    fun renderStateError(message: String, allowRetry: Boolean) {
         showContent.postValue(false)
         showLoading.postValue(false)
         errorMessage.postValue(message)
@@ -38,14 +38,14 @@ class LoadableContentViewModel @Inject constructor(private val context: Context)
         errorAllowRetry.postValue(false)
     }
 
-    fun renderLoading() {
+    fun renderStateLoading() {
         showContent.postValue(false)
         errorMessage.postValue(null)
         showLoading.postValue(true)
         errorAllowRetry.postValue(false)
     }
 
-    fun renderContentReady() {
+    fun renderStateContentReady() {
         showLoading.postValue(false)
         errorMessage.postValue(null)
         showContent.postValue(true)

@@ -6,8 +6,8 @@ import se.allco.githubbrowser.app.user.GithubToken
 import se.allco.githubbrowser.app.user.User
 
 interface ManualLoginRepository {
+    fun writeCachedToken(token: GithubToken): Completable
     fun fetchAccessToken(code: String): Single<GithubToken>
     fun fetchUserData(token: GithubToken): Single<User.Valid>
-    fun writeCachedToken(token: GithubToken): Completable
     fun clearUserData(): Completable
 }
