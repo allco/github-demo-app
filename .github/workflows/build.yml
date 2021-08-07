@@ -13,6 +13,7 @@ jobs:
         uses: actions/setup-java@v2.1.0
         with:
           java-version: 11
+          distribution: jdk
       - name: Run checks
         run: bash ./gradlew check --stacktrace
 
@@ -26,6 +27,7 @@ jobs:
         uses: actions/setup-java@v2.1.0
         with:
           java-version: 11
+          distribution: jdk
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
