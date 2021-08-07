@@ -1,11 +1,9 @@
 package se.allco.githubbrowser.app.user
 
 import android.content.SharedPreferences
-import com.google.gson.GsonBuilder
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import javax.inject.Inject
-import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
@@ -19,7 +17,7 @@ import javax.inject.Singleton
 @Singleton
 class TokenCache @Inject constructor(
     private val prefs: SharedPreferences,
-    private val gsonBuilderProvider: Provider<GsonBuilder>,
+    private val tokenEncryptor: TokenEncryptor,
 ) {
 
     companion object {
@@ -28,25 +26,22 @@ class TokenCache @Inject constructor(
 
     fun read(): Maybe<GithubToken> =
         Maybe.create { emitter ->
-            prefs.getString(KEY, null).takeUnless { it.isNullOrBlank() }
-                ?.let { userInJson ->
-                    emitter.onSuccess(
-                        gsonBuilderProvider
-                            .get()
-                            .create()
-                            .fromJson(userInJson, GithubToken::class.java)
-                    )
-                }
+            tryToReadToken()
+                ?.let(emitter::onSuccess)
                 ?: emitter.onComplete()
         }
 
-    fun write(token: GithubToken): Completable =
-        Completable.fromAction {
-            prefs.edit().apply { putString(KEY, gsonBuilderProvider.get().create().toJson(token)) }
-                .apply()
-        }
+    fun write(token: GithubToken): Completable = Completable.fromAction { saveToken(token) }
+    fun erase(): Completable = Completable.fromAction { eraseToken() }
 
-    fun erase(): Completable = Completable.fromAction {
+    private fun tryToReadToken(): GithubToken? =
+        prefs.getString(KEY, null)
+            .takeUnless { it.isNullOrBlank() }
+            ?.let(tokenEncryptor::decrypt)
+
+    private fun eraseToken() =
         prefs.edit().apply { remove(KEY) }.apply()
-    }
+
+    private fun saveToken(token: GithubToken) =
+        prefs.edit().apply { putString(KEY, tokenEncryptor.encrypt(token)) }.apply()
 }
