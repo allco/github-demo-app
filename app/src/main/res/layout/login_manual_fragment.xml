@@ -84,6 +84,7 @@
             bind:destination="@{viewModel.githubViewModel.destination}"
             bind:goneUnless="@{viewModel.contentViewModel.showContent}"
             bind:settings="@{viewModel.githubViewModel.settings}"
+            bind:webViewClient="@{viewModel.githubViewModel.webClient}"
             tools:alpha="0.5"
             tools:background="#AAFFAAAA"
             />
