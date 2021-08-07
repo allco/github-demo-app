@@ -18,11 +18,10 @@ class AccountFragment @Inject constructor(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? =
-        MainAccountFragmentBinding.inflate(inflater, container, false)
-            .also {
-                it.lifecycleOwner = viewLifecycleOwner
-                it.viewModel = getViewModel(accountViewModelProvider)
-            }
-            .root
+    ): View {
+        val binding = MainAccountFragmentBinding.inflate(inflater, container, false)
+        binding.viewModel = getViewModel(accountViewModelProvider)
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
 }

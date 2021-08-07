@@ -26,15 +26,14 @@ class AutoLoginFragment @Inject constructor(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View =
-        LoginAutoFragmentBinding.inflate(inflater, container, false)
-            .also { binding ->
-                val viewModel = getViewModel(viewModelProvider)
-                binding.viewModel = viewModel
-                binding.lifecycleOwner = viewLifecycleOwner
-                observe(viewModel.result) with (::onLoginResult)
-            }
-            .root
+    ): View {
+        val binding = LoginAutoFragmentBinding.inflate(inflater, container, false)
+        val viewModel = getViewModel(viewModelProvider)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        observe(viewModel.result) with (::onLoginResult)
+        return binding.root
+    }
 
     private fun onLoginResult(user: User) {
         listener.onAutoLoginResult(user)

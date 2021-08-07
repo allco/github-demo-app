@@ -36,7 +36,7 @@ class ManualLoginFragment @Inject constructor(
     ): View =
         LoginManualFragmentBinding
             .inflate(inflater, container, false)
-            .also { initViews(it) }
+            .also(::initViews)
             .root
 
     private fun initViews(binding: LoginManualFragmentBinding) {

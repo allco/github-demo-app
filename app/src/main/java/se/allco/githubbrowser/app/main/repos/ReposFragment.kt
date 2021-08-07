@@ -18,9 +18,10 @@ class ReposFragment @Inject constructor(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? =
-        MainReposFragmentBinding.inflate(inflater, container, false).also { binding ->
-            binding.lifecycleOwner = viewLifecycleOwner
-            binding.viewModel = getViewModel(viewModelProvider)
-        }.root
+    ): View {
+        val binding = MainReposFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = getViewModel(viewModelProvider)
+        return binding.root
+    }
 }
