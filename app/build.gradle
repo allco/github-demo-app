@@ -14,6 +14,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "APP_SCHEMA", "\"gbta\""
         buildConfigField "String", "GITHUB_CLIENT_ID", "\"94d3c44e221f426598d9\""
+        // TODO(alsk): move this one to a secret env variable on CI
         buildConfigField "String", "GITHUB_CLIENT_SECRET", "\"6d6a4d48980e0de8dddcab74e49af86fe6646ba3\""
         buildConfigField "String", "GITHUB_API_BASE_URL", "\"https://api.github.com\""
         buildConfigField "String", "GITHUB_BASE_URL", "\"https://github.com\""
