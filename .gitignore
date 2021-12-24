@@ -41,24 +41,10 @@ build
 *.iml
 *.ipr
 *.iws
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
-.idea/shelf
-.idea/caches
-.idea/misc.xml
-.idea/modules.xml
-.idea/navEditor.xml
-.idea/runConfigurations.xml
-.idea/checkstyle-idea.xml
-.idea/codeStyleSettings.xml
-.idea/assetWizardSettings.xml
-.idea/kotlinc.xml
-.idea/vcs.xml
-.idea/encodings.xml
-.idea/render.experimental.xml
+.idea/*
+!.idea/codeStyles
+!.idea/inspectionProfiles
+
 captures
 
 # Markdown plugin settings

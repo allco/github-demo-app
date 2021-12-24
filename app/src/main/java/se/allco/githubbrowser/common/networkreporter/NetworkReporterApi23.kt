@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import io.reactivex.rxjava3.core.Observable
 
+// TODO(alsk): make it injectable
 internal class NetworkReporterApi23(context: Context) {
     companion object {
         @Suppress("DEPRECATION")

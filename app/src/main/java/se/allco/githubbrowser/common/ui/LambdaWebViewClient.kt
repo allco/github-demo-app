@@ -33,11 +33,9 @@ class LambdaWebViewClient constructor(
         onLoadError?.invoke()
     }
 
-    override fun shouldOverrideUrlLoading(
-        view: WebView,
-        request: WebResourceRequest,
-    ): Boolean {
-        super.shouldOverrideUrlLoading(view, request)
-        return overrideUrlLoading?.invoke(request.url) ?: false
+    @Suppress("DEPRECATION")
+    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+        super.shouldOverrideUrlLoading(view, url)
+        return overrideUrlLoading?.invoke(Uri.parse(url)) ?: false
     }
 }

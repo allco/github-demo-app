@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GithubCodeParser @Inject constructor() {
     fun tryToParse(uri: Uri, requestId: String): GithubCode? {
-        if (uri.scheme == BuildConfig.APP_SCHEMA) return null
+        if (uri.scheme != BuildConfig.APP_SCHEMA) return null
         val state = uri.getQueryParameter("state")
         val code = uri.getQueryParameter("code")
         return when {

@@ -25,6 +25,7 @@ class NetworkConnectivityReporterImpl @Inject constructor(context: Context) :
     @Suppress("MagicNumber")
     private val connectivityStatesStream: Observable<Boolean> by lazy {
         when {
+            // TODO(alsk): create and use a factory instead
             Build.VERSION.SDK_INT >= 24 -> NetworkReporterApi24(context).connectivityStatesStream
             else -> NetworkReporterApi23(context).connectivityStatesStream
         }

@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import io.reactivex.rxjava3.core.Observable
 
+// TODO(alsk): make it injectable
 @RequiresApi(Build.VERSION_CODES.N)
 internal class NetworkReporterApi24(context: Context) {
     val connectivityStatesStream: Observable<Boolean> = Observable.create<Boolean> { emitter ->
