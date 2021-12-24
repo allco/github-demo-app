@@ -19,8 +19,9 @@ import se.allco.githubbrowser.common.utils.timeoutFirst
 
 class GithubWebViewModel @Inject constructor(
     connectivityReporter: ConnectivityStateReporter,
+    private val webViewClientFactory: LambdaWebViewClient.Factory,
     private val destinationFactory: GithubDestinationFactory,
-    private val reader: GithubCodeParser,
+    private val reader: GithubCodeParser
 ) {
     sealed interface Event {
         companion object {
@@ -67,7 +68,7 @@ class GithubWebViewModel @Inject constructor(
     }
 
     private fun createWebViewClient(requestId: String) =
-        LambdaWebViewClient(
+        webViewClientFactory.create(
             overrideUrlLoading = { uri -> overrideUrlLoading(uri, requestId) },
             onLoadFinished = { stateSubject.onNext(Event.PageLoadingSuccess) },
             onLoadError = { stateSubject.onNext(Event.PageLoadingError(R.string.login_manual_error_web_loading)) }

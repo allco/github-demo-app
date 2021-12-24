@@ -6,6 +6,7 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import javax.inject.Inject
 
 class LambdaWebViewClient constructor(
     private val onLoadStarted: ((url: String) -> Unit)? = null,
@@ -13,6 +14,20 @@ class LambdaWebViewClient constructor(
     private val overrideUrlLoading: ((uri: Uri) -> Boolean)? = null, // should return `true` to cancel the loading
     private val onLoadError: (() -> Unit)? = null,
 ) : WebViewClient() {
+
+    class Factory @Inject constructor() {
+        fun create(
+            onLoadStarted: ((url: String) -> Unit)? = null,
+            onLoadFinished: ((url: String) -> Unit)? = null,
+            overrideUrlLoading: ((uri: Uri) -> Boolean)? = null, // should return `true` to cancel the loading
+            onLoadError: (() -> Unit)? = null,
+        ): WebViewClient = LambdaWebViewClient(
+            onLoadError = onLoadError,
+            onLoadStarted = onLoadStarted,
+            onLoadFinished = onLoadFinished,
+            overrideUrlLoading = overrideUrlLoading
+        )
+    }
 
     override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
