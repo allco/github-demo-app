@@ -20,19 +20,19 @@ internal fun log(err: Throwable) {
     Timber.v("error[${err.message}] thread:${Thread.currentThread()}")
 }
 
-fun <T> Observable<T>.dump(tag: String): Observable<T> =
+fun <T : Any> Observable<T>.dump(tag: String): Observable<T> =
     this
         .doFinally { log(tag, "doFinally") }
-        .doOnNext { log(tag, "onNext: ${it.toString()}") }
+        .doOnNext { log(tag, "onNext: $it") }
         .doOnError { er -> log(tag, "onError: $er") }
         .doOnSubscribe { log(tag, "onSubscribed") }
         .doOnDispose { log(tag, "onDisposed") }
         .doOnComplete { log(tag, "onComplete") }
 
-fun <T> Flowable<T>.dump(tag: String): Flowable<T> =
+fun <T : Any> Flowable<T>.dump(tag: String): Flowable<T> =
     this
         .doFinally { log(tag, "doFinally") }
-        .doOnNext { log(tag, "onNext: ${it.toString()}") }
+        .doOnNext { log(tag, "onNext: $it") }
         .doOnError { er -> log(tag, "onError: $er") }
         .doOnComplete { log(tag, "onComplete") }
         .doOnSubscribe { log(tag, "onSubscribed") }
@@ -40,18 +40,18 @@ fun <T> Flowable<T>.dump(tag: String): Flowable<T> =
         .doOnRequest { req -> log(tag, "onRequested $req") }
         .doOnCancel { log(tag, "onCanceled") }
 
-fun <T> Single<T>.dump(tag: String): Single<T> =
+fun <T : Any> Single<T>.dump(tag: String): Single<T> =
     this
         .doFinally { log(tag, "doFinally") }
-        .doOnSuccess { log(tag, "onSuccess: ${it.toString()}") }
+        .doOnSuccess { log(tag, "onSuccess: $it") }
         .doOnError { er -> log(tag, "onError: $er") }
         .doOnSubscribe { log(tag, "onSubscribed") }
         .doOnDispose { log(tag, "onDisposed") }
 
-fun <T> Maybe<T>.dump(tag: String): Maybe<T> =
+fun <T : Any> Maybe<T>.dump(tag: String): Maybe<T> =
     this
         .doFinally { log(tag, "doFinally") }
-        .doOnSuccess { log(tag, "onSuccess: ${it.toString()}") }
+        .doOnSuccess { log(tag, "onSuccess: $it") }
         .doOnComplete { log(tag, "onComplete") }
         .doOnError { er -> log(tag, "onError: $er") }
         .doOnSubscribe { log(tag, "onSubscribed") }

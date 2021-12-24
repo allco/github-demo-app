@@ -52,7 +52,7 @@ class SmartLoadingConfiguration<T> {
     var onShowLoadingEmitter: (() -> T)? = null
 }
 
-fun <T> Observable<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Observable<T> {
+fun <T : Any> Observable<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Observable<T> {
     val config = SmartLoadingConfiguration<T>().apply(configBlock)
     @Suppress("DEPRECATION")
     return attachSmartLoading(
@@ -81,16 +81,16 @@ fun <T> Observable<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<
     }
 }
 
-fun <T> Single<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Single<T> =
+fun <T : Any> Single<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Single<T> =
     toObservable().attachSmartLoading(configBlock).firstOrError()
 
-fun <T> Maybe<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Maybe<T> =
+fun <T : Any> Maybe<T>.attachSmartLoading(configBlock: SmartLoadingConfiguration<T>.() -> Unit): Maybe<T> =
     toObservable().attachSmartLoading(configBlock).firstElement()
 
 fun Completable.attachSmartLoading(configBlock: SmartLoadingConfiguration<Any>.() -> Unit): Completable =
     toObservable<Any>().attachSmartLoading(configBlock).ignoreElements()
 
-private fun <T> Observable<T>.attachSmartLoading(
+private fun <T : Any> Observable<T>.attachSmartLoading(
     warmingUpPhaseDurationMs: Long = SMART_SPINNER_PHASE_WARMING_UP_MS,
     loadingPhaseDurationMs: Long = SMART_SPINNER_PHASE_LOADING_MS,
     scheduler: Scheduler = Schedulers.io(),

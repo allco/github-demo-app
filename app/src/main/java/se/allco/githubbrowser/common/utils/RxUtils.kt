@@ -17,18 +17,18 @@ operator fun CompositeDisposable.plusAssign(disposable: Disposable?) {
 fun <T> Maybe<T>.toSingleOptional(): Single<Optional<T>> =
     map { Optional.of(it) }.defaultIfEmpty(Optional.None)
 
-fun <T> ObservableEmitter<T>.onNextSafely(value: T?) {
+fun <T : Any> ObservableEmitter<T>.onNextSafely(value: T?) {
     value?.takeIf { !isDisposed }?.also { onNext(it) }
 }
 
-fun <T> Observable<T>.delayIfNotNull(
+fun <T : Any> Observable<T>.delayIfNotNull(
     timeMs: Long,
     unit: TimeUnit = TimeUnit.MILLISECONDS,
     scheduler: Scheduler = Schedulers.io(),
 ): Observable<T> =
     timeMs.takeIf { it > 0 }?.let { delay(it, unit, scheduler) } ?: this
 
-fun <T> Observable<T>.timeoutFirst(
+fun <T : Any> Observable<T>.timeoutFirst(
     timeMs: Long,
     unit: TimeUnit = TimeUnit.MILLISECONDS,
     scheduler: Scheduler = Schedulers.io(),

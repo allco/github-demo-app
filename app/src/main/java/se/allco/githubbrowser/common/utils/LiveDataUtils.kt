@@ -70,7 +70,7 @@ fun <T1, T2, T3> combineLiveData(
 ): LiveData<T3> =
     left.combine(right, initialValue, action)
 
-private fun <T> Flowable<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> {
+private fun <T : Any> Flowable<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> {
     val callPlace = getCallPlace(callStackDepth = callStackDepth)
     return LiveDataReactiveStreams.fromPublisher(
         onErrorResumeNext { err: Throwable ->
@@ -80,10 +80,10 @@ private fun <T> Flowable<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> {
     )
 }
 
-private fun <T> Observable<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> =
+private fun <T : Any> Observable<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> =
     toFlowable(BackpressureStrategy.LATEST).toLiveDataImpl(callStackDepth)
 
-private fun <T> Single<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> =
+private fun <T : Any> Single<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> =
     toFlowable().toLiveDataImpl(callStackDepth)
 
 /**
@@ -92,7 +92,7 @@ private fun <T> Single<T>.toLiveDataImpl(callStackDepth: Int): LiveData<T> =
  * The source Rx stream will be subscribed and disposed when the returned LiveData instance
  * is observed and unobserved respectively.
  */
-fun <T> Flowable<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
+fun <T : Any> Flowable<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
 
 /**
  * Converts Rx stream to LiveData.
@@ -100,14 +100,14 @@ fun <T> Flowable<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 
  * The source Rx stream will be subscribed and disposed when the returned LiveData instance
  * is observed and unobserved respectively.
  */
-fun <T> Observable<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
+fun <T : Any> Observable<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
 
 /**
  * Converts Rx stream to LiveData.
  * onError event from the Rx stream will be reported to logcat and swallowed.
  * otherwise RuntimeException: "LiveData does not handle errors" will be thrown.
  */
-fun <T> Single<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
+fun <T : Any> Single<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
 
 /**
  * Converts Rx stream to LiveData.
@@ -115,7 +115,7 @@ fun <T> Single<T>.toLiveData(): LiveData<T> = toLiveDataImpl(callStackDepth = 2)
  * The source Rx stream will be subscribed immediately
  * and disposed only when the disposable added to `disposableContainer` is disposed.
  */
-fun <T> Observable<T>.toLiveData(disposableContainer: CompositeDisposable): LiveData<T> =
+fun <T : Any> Observable<T>.toLiveData(disposableContainer: CompositeDisposable): LiveData<T> =
     toLiveDataImpl(callStackDepth = 3).apply {
         if (!disposableContainer.isDisposed) {
             val dummyObserver = Observer<T> {}
@@ -124,7 +124,7 @@ fun <T> Observable<T>.toLiveData(disposableContainer: CompositeDisposable): Live
         }
     }
 
-fun <T> Single<T>.toLiveData(disposableContainer: CompositeDisposable): LiveData<T> =
+fun <T : Any> Single<T>.toLiveData(disposableContainer: CompositeDisposable): LiveData<T> =
     toObservable().toLiveData(disposableContainer)
 
 /**

@@ -23,7 +23,7 @@ class LoadableContentViewModel @Inject constructor(private val context: Context)
 
     fun onRetryClicked() = retrySubject.onNext(Unit)
 
-    fun <T> runRetryable(block: () -> Single<T>): Observable<T> =
+    fun <T : Any> runRetryable(block: () -> Single<T>): Observable<T> =
         retrySubject.switchMapSingle { block() }
 
     fun renderStateErrorGeneric(allowRetry: Boolean) {
