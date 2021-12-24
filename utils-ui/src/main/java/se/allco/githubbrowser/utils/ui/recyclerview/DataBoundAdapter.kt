@@ -1,11 +1,13 @@
-package se.allco.githubbrowser.common.ui.recyclerview
+package se.allco.githubbrowser.utils.ui.recyclerview
 
 import androidx.annotation.AnyThread
 import androidx.annotation.LayoutRes
 import androidx.annotation.MainThread
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import se.allco.githubbrowser.BR
+import se.allco.githubbrowser.common.ui.recyclerview.BaseAdapter
+import se.allco.githubbrowser.common.ui.recyclerview.DataBoundViewHolder
+import se.allco.githubbrowser.utils.ui.BR
 
 class DataBoundAdapter(items: List<Item>?) : BaseAdapter<ViewDataBinding>() {
 

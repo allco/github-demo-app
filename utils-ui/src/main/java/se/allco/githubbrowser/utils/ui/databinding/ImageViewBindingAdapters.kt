@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.ui.databinding
+package se.allco.githubbrowser.utils.ui.databinding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

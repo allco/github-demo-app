@@ -2,7 +2,7 @@ package se.allco.githubbrowser.app.main.repos
 
 import javax.inject.Inject
 import se.allco.githubbrowser.R
-import se.allco.githubbrowser.common.ui.recyclerview.DataBoundAdapter
+import se.allco.githubbrowser.utils.ui.recyclerview.DataBoundAdapter
 
 class ReposItemViewModel(val repo: ReposRepository.Repo) : DataBoundAdapter.Item {
 

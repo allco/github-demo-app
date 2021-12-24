@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import se.allco.githubbrowser.app.login.autologin.AutoLoginFragment
 import se.allco.githubbrowser.app.login.manuallogin.ManualLoginFragment
-import se.allco.githubbrowser.common.ui.FragmentKey
+import se.allco.githubbrowser.utils.ui.FragmentKey
 
 @Module
 @Suppress("UnnecessaryAbstractClass")

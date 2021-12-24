@@ -7,7 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import se.allco.githubbrowser.common.ui.childIterator
+import se.allco.githubbrowser.utils.ui.childIterator
 
 /**
  * It is based on a google sample:

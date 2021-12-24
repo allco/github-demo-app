@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import javax.inject.Inject
 import javax.inject.Provider
-import se.allco.githubbrowser.utils.getViewModel
 import se.allco.githubbrowser.databinding.MainReposFragmentBinding
+import se.allco.githubbrowser.utils.getViewModel
 
 class ReposFragment @Inject constructor(
     private val viewModelProvider: Provider<ReposViewModel>,

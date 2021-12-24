@@ -12,9 +12,9 @@ import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.di.AppComponent
 import se.allco.githubbrowser.app.login.di.LoginComponent
 import se.allco.githubbrowser.app.main.MainActivity
-import se.allco.githubbrowser.common.ui.FragmentFactory
 import se.allco.githubbrowser.utils.getViewModel
 import se.allco.githubbrowser.utils.observe
+import se.allco.githubbrowser.utils.ui.FragmentFactory
 import se.allco.githubbrowser.utils.with
 import timber.log.Timber
 
@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var fragmentFactory: FragmentFactory
+
     @Inject
     lateinit var mediator: LoginMediator
 

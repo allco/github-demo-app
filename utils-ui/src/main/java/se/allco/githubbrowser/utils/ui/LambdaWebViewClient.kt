@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.ui
+package se.allco.githubbrowser.utils.ui
 
 import android.graphics.Bitmap
 import android.net.Uri

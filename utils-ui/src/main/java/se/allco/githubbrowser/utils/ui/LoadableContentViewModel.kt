@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.ui
+package se.allco.githubbrowser.utils.ui
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -8,7 +8,6 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
-import se.allco.githubbrowser.R
 import se.allco.githubbrowser.utils.map
 
 class LoadableContentViewModel @Inject constructor(private val context: Context) {
@@ -25,10 +24,6 @@ class LoadableContentViewModel @Inject constructor(private val context: Context)
 
     fun <T : Any> runRetryable(block: () -> Single<T>): Observable<T> =
         retrySubject.switchMapSingle { block() }
-
-    fun renderStateErrorGeneric(allowRetry: Boolean) {
-        renderStateError(R.string.error_generic, allowRetry)
-    }
 
     fun renderStateError(@StringRes messageRes: Int, allowRetry: Boolean) {
         renderStateError(context.getString(messageRes), allowRetry)

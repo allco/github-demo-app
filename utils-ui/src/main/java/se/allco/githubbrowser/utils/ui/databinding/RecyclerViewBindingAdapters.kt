@@ -1,10 +1,10 @@
-package se.allco.githubbrowser.common.ui.databinding
+package se.allco.githubbrowser.utils.ui.databinding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import se.allco.githubbrowser.common.ui.recyclerview.DataBoundAdapter
 import se.allco.githubbrowser.common.ui.recyclerview.DividerItemDecoration
 import se.allco.githubbrowser.utils.dpToPx
+import se.allco.githubbrowser.utils.ui.recyclerview.DataBoundAdapter
 
 @BindingAdapter("listItems")
 fun setRecyclerViewListItems(recyclerView: RecyclerView, listItems: List<DataBoundAdapter.Item>?) {
