@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0"
     }
 }
 
@@ -21,4 +22,25 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+subprojects {
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    detekt {
+        autoCorrect = true
+        buildUponDefaultConfig = true
+        config = files("${rootProject.rootDir}/config/detekt/detekt-config.yml")
+        baseline = file("detekt-baseline.xml")
+        parallel = true
+
+        reports {
+            xml.enabled = true
+            html.enabled = true
+        }
+    }
+
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
+    }
 }
