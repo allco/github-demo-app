@@ -5,7 +5,7 @@ package se.allco.githubbrowser.common.utils
  * @returns string with contains "<method_name> at <filename>:<linenumber>" from where it was called.
  */
 fun getCallPlace(callStackDepth: Int = 1): String {
-    val stackTrace = Throwable().stackTrace
+    val stackTrace = Throwable("dummy exception").stackTrace
     check(stackTrace.size > callStackDepth) {
         "Synthetic stacktrace didn't have enough elements: are you using proguard?"
     }
