@@ -2,10 +2,9 @@ package se.allco.githubbrowser.app.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import se.allco.githubbrowser.app.login._di.LoginScope
-import se.allco.githubbrowser.common.ui.toSingleLiveEvent
 import javax.inject.Inject
-
+import se.allco.githubbrowser.app.login.di.LoginScope
+import se.allco.githubbrowser.common.ui.toSingleLiveEvent
 
 @LoginScope
 class LoginMediator @Inject constructor() {

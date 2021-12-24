@@ -30,11 +30,14 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
         check(!hasActiveObservers()) { "Multiple observers are not allowed." }
 
         // Observe the internal MutableLiveData
-        super.observe(owner, Observer { t ->
-            if (mPending.compareAndSet(true, false)) {
-                observer.onChanged(t)
+        super.observe(
+            owner,
+            Observer { t ->
+                if (mPending.compareAndSet(true, false)) {
+                    observer.onChanged(t)
+                }
             }
-        })
+        )
     }
 
     @MainThread

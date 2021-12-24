@@ -57,4 +57,3 @@ inline fun <reified T : ViewModel> FragmentActivity.getViewModel(crossinline vie
 
 fun AndroidViewModel.getString(@StringRes res: Int): String =
     this.getApplication<Application>().getString(res)
-

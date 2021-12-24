@@ -1,10 +1,10 @@
 package se.allco.githubbrowser.app.user.http
 
+import javax.inject.Inject
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import se.allco.githubbrowser.BuildConfig
-import se.allco.githubbrowser.app.user._di.UserScope
-import javax.inject.Inject
+import se.allco.githubbrowser.app.user.di.UserScope
 
 @UserScope
 class RetrofitFactory @Inject constructor(

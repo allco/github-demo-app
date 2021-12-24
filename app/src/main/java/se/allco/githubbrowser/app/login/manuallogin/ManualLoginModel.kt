@@ -2,8 +2,8 @@ package se.allco.githubbrowser.app.login.manuallogin
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import se.allco.githubbrowser.app.user.User
 import javax.inject.Inject
+import se.allco.githubbrowser.app.user.User
 
 typealias GithubCode = String
 

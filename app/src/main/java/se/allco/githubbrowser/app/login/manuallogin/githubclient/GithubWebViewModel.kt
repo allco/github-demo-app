@@ -6,16 +6,16 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
+import java.util.UUID
+import javax.inject.Inject
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.login.manuallogin.GithubCode
-import se.allco.githubbrowser.common.network_reporter.ConnectivityStateReporter
+import se.allco.githubbrowser.common.networkreporter.ConnectivityStateReporter
 import se.allco.githubbrowser.common.ui.LambdaWebViewClient
 import se.allco.githubbrowser.common.ui.attachSmartLoading
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewDestination
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewSettings
 import se.allco.githubbrowser.common.utils.timeoutFirst
-import java.util.UUID
-import javax.inject.Inject
 
 class GithubWebViewModel @Inject constructor(
     connectivityReporter: ConnectivityStateReporter,

@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.app.login._di
+package se.allco.githubbrowser.app.login.di
 
 import androidx.fragment.app.Fragment
 import dagger.Binds
@@ -9,6 +9,7 @@ import se.allco.githubbrowser.app.login.manuallogin.ManualLoginFragment
 import se.allco.githubbrowser.common.ui.FragmentKey
 
 @Module
+@Suppress("UnnecessaryAbstractClass")
 abstract class LoginFragmentsModule {
     @Binds
     @IntoMap

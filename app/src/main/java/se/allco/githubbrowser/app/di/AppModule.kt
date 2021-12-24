@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.app._di
+package se.allco.githubbrowser.app.di
 
 import android.app.Activity
 import android.app.Application
@@ -9,16 +9,16 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import se.allco.githubbrowser.BuildConfig
 import se.allco.githubbrowser.common.logging.LoggingInterceptor
-import se.allco.githubbrowser.common.network_reporter.ConnectivityStateReporter
-import se.allco.githubbrowser.common.network_reporter.NetworkConnectivityReporterImpl
-import javax.inject.Named
-import javax.inject.Singleton
+import se.allco.githubbrowser.common.networkreporter.ConnectivityStateReporter
+import se.allco.githubbrowser.common.networkreporter.NetworkConnectivityReporterImpl
 
 @Module
 class AppModule {

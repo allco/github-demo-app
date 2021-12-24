@@ -2,9 +2,9 @@ package se.allco.githubbrowser.app.main.account
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.app.user.UserComponentHolder
-import javax.inject.Inject
 
 class AccountRepository @Inject constructor(
     private val userComponentHolder: UserComponentHolder,
@@ -25,4 +25,3 @@ fun User.Valid.asAccount() =
         name = this.userName,
         imageUrl = imageUrl
     )
-

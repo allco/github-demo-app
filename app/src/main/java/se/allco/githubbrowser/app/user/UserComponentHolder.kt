@@ -7,11 +7,11 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import se.allco.githubbrowser.app._di.AppComponent
-import se.allco.githubbrowser.app.user._di.UserComponent
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
+import se.allco.githubbrowser.app.di.AppComponent
+import se.allco.githubbrowser.app.user.di.UserComponent
 
 @Singleton
 class UserComponentHolder @Inject constructor(

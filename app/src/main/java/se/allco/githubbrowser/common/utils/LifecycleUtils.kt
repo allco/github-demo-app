@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package se.allco.githubbrowser.common.utils
 
 import androidx.lifecycle.DefaultLifecycleObserver

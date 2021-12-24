@@ -1,9 +1,9 @@
 package se.allco.githubbrowser.app.login.autologin
 
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.utils.toSingleOptional
-import javax.inject.Inject
 
 class AutoLoginModel @Inject constructor(private val repository: AutoLoginRepository) {
 

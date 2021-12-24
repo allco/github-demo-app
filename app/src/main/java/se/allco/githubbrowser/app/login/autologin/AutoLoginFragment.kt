@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import javax.inject.Inject
+import javax.inject.Provider
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.utils.getViewModel
 import se.allco.githubbrowser.common.utils.observe
 import se.allco.githubbrowser.common.utils.with
 import se.allco.githubbrowser.databinding.LoginAutoFragmentBinding
-import javax.inject.Inject
-import javax.inject.Provider
 
 class AutoLoginFragment @Inject constructor(
     private val viewModelProvider: Provider<AutoLoginViewModel>,

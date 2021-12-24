@@ -7,16 +7,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.TaskStackBuilder
 import androidx.navigation.findNavController
+import javax.inject.Inject
 import se.allco.githubbrowser.R
-import se.allco.githubbrowser.app._di.AppComponent
-import se.allco.githubbrowser.app.login._di.LoginComponent
+import se.allco.githubbrowser.app.di.AppComponent
+import se.allco.githubbrowser.app.login.di.LoginComponent
 import se.allco.githubbrowser.app.main.MainActivity
 import se.allco.githubbrowser.common.ui.FragmentFactory
 import se.allco.githubbrowser.common.utils.getViewModel
 import se.allco.githubbrowser.common.utils.observe
 import se.allco.githubbrowser.common.utils.with
 import timber.log.Timber
-import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 

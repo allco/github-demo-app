@@ -49,4 +49,3 @@ fun FragmentActivity.ensureUserLoggedIn(onValidUser: () -> Unit) {
 
     onUserChanged(currentUser(), onValidUser)
 }
-

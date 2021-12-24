@@ -9,4 +9,3 @@ import android.util.TypedValue
 
 fun Context.dpToPx(dps: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dps, resources.displayMetrics).toInt()
-

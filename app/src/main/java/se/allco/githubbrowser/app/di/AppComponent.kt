@@ -1,14 +1,14 @@
-package se.allco.githubbrowser.app._di
+package se.allco.githubbrowser.app.di
 
 import android.app.Application
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import se.allco.githubbrowser.app.BaseApplication
-import se.allco.githubbrowser.app.login._di.LoginComponent
-import se.allco.githubbrowser.app.user.UserComponentHolder
-import se.allco.githubbrowser.app.user._di.UserComponent
 import javax.inject.Singleton
+import se.allco.githubbrowser.app.BaseApplication
+import se.allco.githubbrowser.app.login.di.LoginComponent
+import se.allco.githubbrowser.app.user.UserComponentHolder
+import se.allco.githubbrowser.app.user.di.UserComponent
 
 @Singleton
 @Component(modules = [AppModule::class])

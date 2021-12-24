@@ -1,9 +1,9 @@
 package se.allco.githubbrowser.app.login.manuallogin.githubclient
 
 import android.net.Uri
+import javax.inject.Inject
 import se.allco.githubbrowser.BuildConfig
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewDestination
-import javax.inject.Inject
 
 class GithubDestinationFactory @Inject constructor() {
     fun create(requestId: String): WebViewDestination =

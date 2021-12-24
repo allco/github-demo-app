@@ -6,7 +6,9 @@ package se.allco.githubbrowser.common.utils
  */
 fun getCallPlace(callStackDepth: Int = 1): String {
     val stackTrace = Throwable().stackTrace
-    check(stackTrace.size > callStackDepth) { "Synthetic stacktrace didn't have enough elements: are you using proguard?" }
+    check(stackTrace.size > callStackDepth) {
+        "Synthetic stacktrace didn't have enough elements: are you using proguard?"
+    }
     val e = stackTrace[callStackDepth]
     val className = e.className.substring(e.className.lastIndexOf('.') + 1)
     return "$className.${e.methodName}(..) at ${e.fileName}:${e.lineNumber}"

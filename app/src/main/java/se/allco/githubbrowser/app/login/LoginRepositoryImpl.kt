@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.http.Body
@@ -19,7 +20,6 @@ import se.allco.githubbrowser.app.user.GithubToken
 import se.allco.githubbrowser.app.user.TokenCache
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.app.user.UserComponentHolder
-import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
     private val tokenCache: TokenCache,

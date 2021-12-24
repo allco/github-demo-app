@@ -1,9 +1,9 @@
-package se.allco.githubbrowser.app.login._di
+package se.allco.githubbrowser.app.login.di
 
 import androidx.lifecycle.ViewModel
 import dagger.Subcomponent
-import se.allco.githubbrowser.app.login.LoginActivity
 import javax.inject.Scope
+import se.allco.githubbrowser.app.login.LoginActivity
 
 @Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)

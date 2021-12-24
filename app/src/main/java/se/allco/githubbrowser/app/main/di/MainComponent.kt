@@ -1,10 +1,10 @@
-package se.allco.githubbrowser.app.main._di
+package se.allco.githubbrowser.app.main.di
 
 import androidx.lifecycle.ViewModel
 import dagger.Subcomponent
+import javax.inject.Scope
 import se.allco.githubbrowser.app.main.MainActivity
 import se.allco.githubbrowser.common.ui.FragmentFactory
-import javax.inject.Scope
 
 @Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
@@ -16,4 +16,3 @@ abstract class MainComponent : ViewModel() {
     abstract fun getFragmentFactory(): FragmentFactory
     abstract fun inject(mainActivity: MainActivity)
 }
-

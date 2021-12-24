@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import javax.inject.Inject
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.common.utils.map
-import javax.inject.Inject
 
 class LoadableContentViewModel @Inject constructor(private val context: Context) {
 

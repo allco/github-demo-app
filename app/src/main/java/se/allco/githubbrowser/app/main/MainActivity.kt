@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import se.allco.githubbrowser.R
-import se.allco.githubbrowser.app.main._di.MainComponent
+import se.allco.githubbrowser.app.main.di.MainComponent
 import se.allco.githubbrowser.app.user.UserComponentHolder
 import se.allco.githubbrowser.common.ui.ensureUserLoggedIn
 import se.allco.githubbrowser.common.utils.getViewModel

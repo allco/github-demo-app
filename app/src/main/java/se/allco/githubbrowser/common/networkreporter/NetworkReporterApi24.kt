@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.network_reporter
+package se.allco.githubbrowser.common.networkreporter
 
 import android.content.Context
 import android.net.ConnectivityManager

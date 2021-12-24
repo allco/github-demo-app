@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.network_reporter
+package se.allco.githubbrowser.common.networkreporter
 
 import android.content.Context
 import android.os.Build
@@ -18,6 +18,11 @@ interface ConnectivityStateReporter {
 class NetworkConnectivityReporterImpl @Inject constructor(context: Context) :
     ConnectivityStateReporter {
 
+    companion object {
+        private const val DEBOUNCE_TIMEOUT = 200L
+    }
+
+    @Suppress("MagicNumber")
     private val connectivityStatesStream: Observable<Boolean> by lazy {
         when {
             Build.VERSION.SDK_INT >= 24 -> NetworkReporterApi24(context).connectivityStatesStream
@@ -25,7 +30,7 @@ class NetworkConnectivityReporterImpl @Inject constructor(context: Context) :
         }
             .startWithItem(false)
             .distinctUntilChanged()
-            .debounce(200, TimeUnit.MILLISECONDS, Schedulers.io())
+            .debounce(DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS, Schedulers.io())
             .replay(1)
             .refCount()
     }

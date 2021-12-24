@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.recyclerview.widget.RecyclerView
 import timber.log.Timber
 
+@Suppress("MaxLineLength")
 /**
  *
  * A generic ViewHolder that wraps a generated ViewDataBinding class.
@@ -67,7 +68,7 @@ class DataBoundViewHolder<T : ViewDataBinding> private constructor(val binding: 
          * @param layoutId The layout id that should be inflated. Must use data binding
          * @param <T> The type of the Binding class that will be generated for the `layoutId`.
          * @return A new ViewHolder that has a reference to the binding class
-        </T> */
+         </T> */
         fun <T : ViewDataBinding> create(
             parent: ViewGroup,
             @LayoutRes layoutId: Int,

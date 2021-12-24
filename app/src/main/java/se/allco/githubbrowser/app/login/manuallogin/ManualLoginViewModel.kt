@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import javax.inject.Inject
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel
 import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.GithubCodeReceived
@@ -15,7 +16,6 @@ import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.ui.LoadableContentViewModel
 import se.allco.githubbrowser.common.utils.toLiveData
 import timber.log.Timber
-import javax.inject.Inject
 
 class ManualLoginViewModel @Inject constructor(
     application: Application,

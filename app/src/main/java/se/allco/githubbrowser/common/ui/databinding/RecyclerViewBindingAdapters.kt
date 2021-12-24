@@ -12,7 +12,9 @@ fun setRecyclerViewListItems(recyclerView: RecyclerView, listItems: List<DataBou
         when (val adapter = recyclerView.adapter) {
             null -> recyclerView.adapter = DataBoundAdapter(listItems)
             is DataBoundAdapter -> adapter.updateItems(listItems)
-            else -> throw IllegalStateException("when the `:listItems` attribute is used no Adapters should be added to the RecyclerView")
+            else -> throw IllegalStateException(
+                "when the `:listItems` is used no Adapters should be added to the RecyclerView"
+            )
         }
     }
 }

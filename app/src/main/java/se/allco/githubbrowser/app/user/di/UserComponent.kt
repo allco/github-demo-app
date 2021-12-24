@@ -1,10 +1,10 @@
-package se.allco.githubbrowser.app.user._di
+package se.allco.githubbrowser.app.user.di
 
 import dagger.BindsInstance
 import dagger.Subcomponent
-import se.allco.githubbrowser.app.main._di.MainComponent
-import se.allco.githubbrowser.app.user.User
 import javax.inject.Scope
+import se.allco.githubbrowser.app.main.di.MainComponent
+import se.allco.githubbrowser.app.user.User
 
 @Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)

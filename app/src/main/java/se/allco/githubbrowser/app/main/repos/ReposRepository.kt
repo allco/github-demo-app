@@ -4,10 +4,10 @@ import android.net.Uri
 import com.google.gson.annotations.SerializedName
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 import retrofit2.http.GET
 import retrofit2.http.Query
 import se.allco.githubbrowser.app.user.http.RetrofitFactory
-import javax.inject.Inject
 
 class ReposRepository @Inject constructor(private val retrofitFactory: RetrofitFactory) {
 

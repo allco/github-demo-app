@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import javax.inject.Inject
+import javax.inject.Provider
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.ui.overrideOnBackPress
@@ -17,8 +19,6 @@ import se.allco.githubbrowser.common.utils.getViewModel
 import se.allco.githubbrowser.common.utils.observe
 import se.allco.githubbrowser.common.utils.with
 import se.allco.githubbrowser.databinding.LoginManualFragmentBinding
-import javax.inject.Inject
-import javax.inject.Provider
 
 class ManualLoginFragment @Inject constructor(
     private val viewModelProvider: Provider<ManualLoginViewModel>,

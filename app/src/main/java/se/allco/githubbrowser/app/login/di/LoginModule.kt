@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.app.login._di
+package se.allco.githubbrowser.app.login.di
 
 import dagger.Module
 import dagger.Provides
