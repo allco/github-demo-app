@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.utils
+package se.allco.githubbrowser.utils
 
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable

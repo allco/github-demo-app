@@ -1,6 +1,6 @@
 @file:Suppress("TooManyFunctions")
 
-package se.allco.githubbrowser.common.utils
+package se.allco.githubbrowser.utils
 
 import androidx.core.app.ComponentActivity
 import androidx.fragment.app.Fragment

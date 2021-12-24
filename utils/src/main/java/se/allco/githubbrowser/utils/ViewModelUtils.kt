@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.utils
+package se.allco.githubbrowser.utils
 
 import android.app.Application
 import androidx.annotation.StringRes

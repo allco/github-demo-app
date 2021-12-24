@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import javax.inject.Inject
 import javax.inject.Provider
 import se.allco.githubbrowser.app.user.User
-import se.allco.githubbrowser.common.utils.getViewModel
-import se.allco.githubbrowser.common.utils.observe
-import se.allco.githubbrowser.common.utils.with
+import se.allco.githubbrowser.utils.getViewModel
+import se.allco.githubbrowser.utils.observe
+import se.allco.githubbrowser.utils.with
 import se.allco.githubbrowser.databinding.LoginAutoFragmentBinding
 
 class AutoLoginFragment @Inject constructor(

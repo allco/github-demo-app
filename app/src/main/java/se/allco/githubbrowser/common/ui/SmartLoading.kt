@@ -12,9 +12,9 @@ import io.reactivex.rxjava3.disposables.SerialDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
-import se.allco.githubbrowser.common.utils.delayIfNotNull
-import se.allco.githubbrowser.common.utils.plusAssign
-import se.allco.githubbrowser.common.utils.postValueIfChanged
+import se.allco.githubbrowser.utils.delayIfNotNull
+import se.allco.githubbrowser.utils.plusAssign
+import se.allco.githubbrowser.utils.postValueIfChanged
 
 const val SMART_SPINNER_PHASE_WARMING_UP_MS = 500L
 const val SMART_SPINNER_PHASE_LOADING_MS = 1000L

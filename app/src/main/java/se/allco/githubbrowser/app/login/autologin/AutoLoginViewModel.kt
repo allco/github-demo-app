@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.common.ui.attachSmartLoading
-import se.allco.githubbrowser.common.utils.toLiveData
+import se.allco.githubbrowser.utils.toLiveData
 
 class AutoLoginViewModel @Inject constructor(
     model: AutoLoginModel,

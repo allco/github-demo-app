@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.disposables.SerialDisposable
 import se.allco.githubbrowser.app.login.LoginActivity
 import se.allco.githubbrowser.app.user.User
 import se.allco.githubbrowser.app.user.UserComponentHolder
-import se.allco.githubbrowser.common.utils.attachLifecycleEventsObserver
+import se.allco.githubbrowser.utils.attachLifecycleEventsObserver
 
 fun FragmentActivity.ensureUserLoggedIn(onValidUser: () -> Unit) {
 

@@ -8,11 +8,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.common.ui.attachSmartLoading
-import se.allco.githubbrowser.common.utils.combine
-import se.allco.githubbrowser.common.utils.getString
-import se.allco.githubbrowser.common.utils.map
-import se.allco.githubbrowser.common.utils.plusAssign
-import se.allco.githubbrowser.common.utils.toLiveData
+import se.allco.githubbrowser.utils.combine
+import se.allco.githubbrowser.utils.getString
+import se.allco.githubbrowser.utils.map
+import se.allco.githubbrowser.utils.plusAssign
+import se.allco.githubbrowser.utils.toLiveData
 
 class AccountViewModel @Inject constructor(
     application: Application,

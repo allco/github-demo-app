@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.utils
+package se.allco.githubbrowser.utils
 
 import android.content.Context
 import android.util.TypedValue

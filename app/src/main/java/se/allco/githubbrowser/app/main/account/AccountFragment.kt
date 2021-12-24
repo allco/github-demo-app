@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import javax.inject.Inject
 import javax.inject.Provider
-import se.allco.githubbrowser.common.utils.getViewModel
+import se.allco.githubbrowser.utils.getViewModel
 import se.allco.githubbrowser.databinding.MainAccountFragmentBinding
 
 class AccountFragment @Inject constructor(

@@ -10,7 +10,7 @@ import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.main.di.MainComponent
 import se.allco.githubbrowser.app.user.UserComponentHolder
 import se.allco.githubbrowser.common.ui.ensureUserLoggedIn
-import se.allco.githubbrowser.common.utils.getViewModel
+import se.allco.githubbrowser.utils.getViewModel
 import se.allco.githubbrowser.databinding.MainActiviyBinding
 
 class MainActivity : AppCompatActivity() {

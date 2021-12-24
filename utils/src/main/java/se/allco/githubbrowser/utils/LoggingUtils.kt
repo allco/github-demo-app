@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.utils
+package se.allco.githubbrowser.utils
 
 /**
  * [callStackDepth] defines a point of interest in the call stack. In most cases it should be `1`.

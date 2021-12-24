@@ -15,7 +15,7 @@ import se.allco.githubbrowser.common.ui.LambdaWebViewClient
 import se.allco.githubbrowser.common.ui.attachSmartLoading
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewDestination
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewSettings
-import se.allco.githubbrowser.common.utils.timeoutFirst
+import se.allco.githubbrowser.utils.timeoutFirst
 
 class GithubWebViewModel @Inject constructor(
     connectivityReporter: ConnectivityStateReporter,

@@ -1,4 +1,4 @@
-package se.allco.githubbrowser.common.utils
+package se.allco.githubbrowser.utils
 
 /**
  * Implements the same idea as [java.util.Optional] which is available only starting API24
