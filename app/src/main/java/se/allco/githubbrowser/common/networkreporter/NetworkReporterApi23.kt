@@ -6,15 +6,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 
-// TODO(alsk): make it injectable
-internal class NetworkReporterApi23(context: Context) {
+class NetworkReporterApi23 @Inject constructor(context: Context) : NetworkReporterApi {
     companion object {
         @Suppress("DEPRECATION")
         private val INTENT_FILTER = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
     }
 
-    val connectivityStatesStream: Observable<Boolean> = Observable.create { emitter ->
+    override val connectivityStatesStream: Observable<Boolean> = Observable.create { emitter ->
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 when {
