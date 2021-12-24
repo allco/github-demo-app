@@ -2,9 +2,9 @@ package se.allco.githubbrowser.app.login._di
 
 import dagger.Module
 import dagger.Provides
-import se.allco.githubbrowser.app.login.LoginActivityViewModel
 import se.allco.githubbrowser.app.login.LoginRepository
 import se.allco.githubbrowser.app.login.LoginRepositoryImpl
+import se.allco.githubbrowser.app.login.LoginUseCase
 import se.allco.githubbrowser.app.login.autologin.AutoLoginFragment
 import se.allco.githubbrowser.app.login.autologin.AutoLoginRepository
 import se.allco.githubbrowser.app.login.manuallogin.ManualLoginFragment
@@ -14,11 +14,11 @@ import se.allco.githubbrowser.app.login.manuallogin.ManualLoginRepository
 class LoginModule {
 
     @Provides
-    fun provideAutoLoginFragmentListener(impl: LoginActivityViewModel): AutoLoginFragment.Listener =
+    fun provideAutoLoginFragmentListener(impl: LoginUseCase): AutoLoginFragment.Listener =
         impl
 
     @Provides
-    fun provideManualLoginFragmentListener(impl: LoginActivityViewModel): ManualLoginFragment.Listener =
+    fun provideManualLoginFragmentListener(impl: LoginUseCase): ManualLoginFragment.Listener =
         impl
 
     @Provides
