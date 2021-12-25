@@ -24,6 +24,20 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+gradle.projectsEvaluated {
+    def lintConfigPath = "${rootProject.projectDir}/lint.xml"
+    subprojects {
+        if (plugins.hasPlugin("com.android.application") || plugins.hasPlugin("com.android.library")) {
+            extensions.getByName("android")["lintOptions"].with {
+                abortOnError true
+                warningsAsErrors true
+                baseline file("lint-baseline.xml")
+                lintConfig file(lintConfigPath)
+            }
+        }
+    }
+}
+
 subprojects {
     apply plugin: "io.gitlab.arturbosch.detekt"
 
