@@ -3,8 +3,8 @@ name: Build'n'Check the app
 on: [ push ]
 
 jobs:
-  test:
-    name: Run Unit Tests
+  check:
+    name: Check the app
     runs-on: ubuntu-18.04
 
     steps:
@@ -13,21 +13,9 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 11
-          distribution: 'zulu'
+          distribution: 'adopt'
       - name: Run checks
         run: bash ./gradlew check --stacktrace
-
-  apk:
-    name: Generate APK
-    runs-on: ubuntu-18.04
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-          distribution: 'zulu'
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK

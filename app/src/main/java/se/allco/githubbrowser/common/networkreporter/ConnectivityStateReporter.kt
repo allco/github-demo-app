@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+// TODO(any) move this to a separate gradle subproject
 interface ConnectivityStateReporter {
     /**
      * Network connectivity reporter.

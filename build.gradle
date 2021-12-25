@@ -25,7 +25,7 @@ task clean(type: Delete) {
 }
 
 gradle.projectsEvaluated {
-    def lintConfigPath = "${rootProject.projectDir}/lint.xml"
+    def lintConfigPath = "${rootProject.projectDir}/config/lint.xml"
     subprojects {
         if (plugins.hasPlugin("com.android.application") || plugins.hasPlugin("com.android.library")) {
             extensions.getByName("android")["lintOptions"].with {
@@ -33,6 +33,7 @@ gradle.projectsEvaluated {
                 warningsAsErrors true
                 baseline file("lint-baseline.xml")
                 lintConfig file(lintConfigPath)
+                disable 'GradleDependency', 'OldTargetApi'
             }
         }
     }
