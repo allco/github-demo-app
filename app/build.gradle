@@ -11,7 +11,7 @@ android {
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         buildConfigField "String", "APP_SCHEMA", "\"gbta\""
         buildConfigField "String", "GITHUB_CLIENT_ID", "\"94d3c44e221f426598d9\""
         // TODO(alsk): move this one to a secret env variable on CI

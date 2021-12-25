@@ -9,7 +9,6 @@
 
     <string name="main_account_button_logout">Logout</string>
 
-    <string name="login_activity_title">Login</string>
     <string name="login_auto_title">Automatic Sign In</string>
     <string name="login_manual_title">Authentication</string>
     <string name="login_manual_error_web_loading">Web page loading error.</string>

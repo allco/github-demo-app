@@ -3,7 +3,8 @@ package se.allco.githubbrowser.app.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import se.allco.githubbrowser.R
@@ -30,12 +31,19 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         val binding =
             DataBindingUtil.setContentView<MainActiviyBinding>(this, R.layout.main_activiy)
-        val navController = findNavController(R.id.nav_host_fragment)
+
+        val navController = getNavController()
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.navigation_repos, R.id.navigation_account)
         )
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
+    }
+
+    private fun getNavController(): NavController {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        return navHostFragment.navController
     }
 
     private fun getMainComponent(): MainComponent = getViewModel {
