@@ -1,3 +1,3 @@
 include ':app'
-include ':utils'
-include ':utils-ui'
+include ':common:ui'
+include ':common:utils'

@@ -44,8 +44,8 @@ android {
 
 
 dependencies {
-    implementation project(":utils")
-    implementation project(":utils-ui")
+    implementation project(":common:ui")
+    implementation project(":common:utils")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

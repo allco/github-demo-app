@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.Subcomponent
 import javax.inject.Scope
 import se.allco.githubbrowser.app.main.MainActivity
-import se.allco.githubbrowser.utils.ui.FragmentFactory
+import se.allco.githubbrowser.common.ui.FragmentFactory
 
 @Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)

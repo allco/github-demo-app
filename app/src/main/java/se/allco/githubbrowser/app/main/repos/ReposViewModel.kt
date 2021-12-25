@@ -7,9 +7,9 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 import se.allco.githubbrowser.R
-import se.allco.githubbrowser.utils.toLiveData
-import se.allco.githubbrowser.utils.ui.LoadableContentViewModel
-import se.allco.githubbrowser.utils.ui.attachSmartLoading
+import se.allco.githubbrowser.common.ui.LoadableContentViewModel
+import se.allco.githubbrowser.common.ui.attachSmartLoading
+import se.allco.githubbrowser.common.utils.toLiveData
 import timber.log.Timber
 
 class ReposViewModel @Inject constructor(

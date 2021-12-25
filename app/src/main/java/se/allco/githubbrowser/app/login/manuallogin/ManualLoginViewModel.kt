@@ -13,8 +13,8 @@ import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewMo
 import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.PageLoadingStarted
 import se.allco.githubbrowser.app.login.manuallogin.githubclient.GithubWebViewModel.Event.PageLoadingSuccess
 import se.allco.githubbrowser.app.user.User
-import se.allco.githubbrowser.utils.toLiveData
-import se.allco.githubbrowser.utils.ui.LoadableContentViewModel
+import se.allco.githubbrowser.common.ui.LoadableContentViewModel
+import se.allco.githubbrowser.common.utils.toLiveData
 import timber.log.Timber
 
 class ManualLoginViewModel @Inject constructor(

@@ -11,11 +11,11 @@ import javax.inject.Inject
 import se.allco.githubbrowser.R
 import se.allco.githubbrowser.app.login.manuallogin.GithubCode
 import se.allco.githubbrowser.common.networkreporter.ConnectivityStateReporter
+import se.allco.githubbrowser.common.ui.LambdaWebViewClient
+import se.allco.githubbrowser.common.ui.attachSmartLoading
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewDestination
 import se.allco.githubbrowser.common.ui.databinding.webview.WebViewSettings
-import se.allco.githubbrowser.utils.timeoutFirst
-import se.allco.githubbrowser.utils.ui.LambdaWebViewClient
-import se.allco.githubbrowser.utils.ui.attachSmartLoading
+import se.allco.githubbrowser.common.utils.timeoutFirst
 
 class GithubWebViewModel @Inject constructor(
     connectivityReporter: ConnectivityStateReporter,
