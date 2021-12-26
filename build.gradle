@@ -1,15 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+import se.allco.githubbrowser.buildsrc.Libs
+
 buildscript {
-    ext.kotlin_version = '1.5.31'
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0"
+        classpath Libs.androidGradlePlugin
+        classpath Libs.Kotlin.gradlePlugin
+        classpath Libs.Detekt.gradlePlugin
     }
 }
 
@@ -56,6 +57,6 @@ subprojects {
     }
 
     dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
+        detektPlugins(Libs.Detekt.formatting)
     }
 }

@@ -1,3 +1,5 @@
+import se.allco.githubbrowser.buildsrc.Libs
+
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
@@ -27,14 +29,14 @@ android {
 
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
-    implementation "javax.inject:javax.inject:1"
-    implementation "com.jakewharton.timber:timber:4.7.1"
-    implementation "io.reactivex.rxjava3:rxjava:3.0.13"
-    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+    implementation Libs.Kotlin.stdLibJdk7
+    implementation Libs.Kotlin.stdLibJdk8
+    implementation Libs.Kotlin.reflect
+    implementation Libs.AndroidX.Lifecycle.extensions
+    implementation Libs.AndroidX.Lifecycle.reactiveStreams
+    implementation Libs.AndroidX.Lifecycle.common
+    implementation Libs.javaxInject
+    implementation Libs.timber
+    implementation Libs.rxJava
+    implementation Libs.rxJavaAndroid
 }
