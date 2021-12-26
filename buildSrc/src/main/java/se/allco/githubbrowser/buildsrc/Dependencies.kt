@@ -1,10 +1,6 @@
+@file:Suppress("Filename", "MatchingDeclarationName")
+
 package se.allco.githubbrowser.buildsrc
-
-
-object Versions {
-
-
-}
 
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.4"
