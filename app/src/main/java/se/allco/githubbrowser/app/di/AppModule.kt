@@ -54,7 +54,7 @@ class AppModule {
             .apply {
                 if (BuildConfig.DEBUG) {
                     val interceptor = HttpLoggingInterceptor()
-                    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                    interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
                     addInterceptor(interceptor)
                 }
             }
